@@ -1,0 +1,30 @@
+[project]
+name = "youtube-video-metadata"
+version = "0.1.0"
+description = "A REST API to extract basic YouTube video metadata."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.116.1",
+    "uvicorn>=0.35.0",
+    "yt-dlp>=2025.7.21",
+]
+
+[dependency-groups]
+dev = [
+  "rust-just",
+  "flake8",
+  "flake8-isort",
+  "black",
+  "ipython",
+  "debugpy",
+  "ruff",
+  "ty",
+]
+
+[tool.black]
+line-length = 150
+
+[tool.isort]
+profile = "black"
+line_length = 150
