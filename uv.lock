@@ -710,6 +710,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "fastapi" },
     { name = "python-youtube" },
+    { name = "rust-just" },
     { name = "uvicorn" },
 ]
 
@@ -721,7 +722,6 @@ dev = [
     { name = "flake8-isort" },
     { name = "ipython" },
     { name = "ruff" },
-    { name = "rust-just" },
     { name = "ty" },
 ]
 
@@ -729,6 +729,7 @@ dev = [
 requires-dist = [
     { name = "fastapi", specifier = ">=0.116.1" },
     { name = "python-youtube", specifier = ">=0.9.7" },
+    { name = "rust-just", specifier = ">=1.42.4" },
     { name = "uvicorn", specifier = ">=0.35.0" },
 ]
 
@@ -740,6 +741,5 @@ dev = [
     { name = "flake8-isort" },
     { name = "ipython" },
     { name = "ruff" },
-    { name = "rust-just" },
     { name = "ty" },
 ]

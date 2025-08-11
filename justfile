@@ -1,3 +1,10 @@
+#!/usr/bin/env just
+
+set shell := ["bash", "-c"]
+
+default:
+  @just --list
+
 dev-venv:
   uv venv
   uv sync --all-groups --compile-bytecode
