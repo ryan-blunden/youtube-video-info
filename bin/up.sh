@@ -17,13 +17,15 @@ echo $NGROK_PID > .ngrok.pid
 
 # Wait for ngrok to establish tunnel and retry getting URL
 echo "Getting ngrok URL..."
+PORT=${PORT:-8000}
 for i in {1..10}; do
   sleep 2
-  NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url' 2>/dev/null)
-  if [ "$NGROK_URL" != "null" ] && [ "$NGROK_URL" != "" ] && [ "$NGROK_URL" != "null" ]; then
+  NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r --arg port "$PORT" '.tunnels[] | select(.config.addr | test(":'"$port"'$")) | .public_url' 2>/dev/null)
+  if [ "$NGROK_URL" != "" ] && [ "$NGROK_URL" != "null" ]; then
     break
   fi
   echo "Waiting for ngrok tunnel... (attempt $i/10)"
+done
 done
 
 if [ "$NGROK_URL" != "null" ] && [ "$NGROK_URL" != "" ]; then
