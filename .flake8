@@ -1,6 +1,3 @@
 [flake8]
-
-exclude = .venv, node_modules, migrations
+exclude = .venv
 extend-ignore = E203, W503, E501
-per-file-ignores =
-    src/config/gunicorn.py: E231

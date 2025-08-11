@@ -11,3 +11,9 @@ run:
 format:
   uv run isort ./
   uv run black ./
+
+up:
+  ./bin/up.sh
+
+down:
+  ./bin/down.sh

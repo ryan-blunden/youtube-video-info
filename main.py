@@ -4,7 +4,7 @@ from typing import Optional
 
 import yt_dlp
 from fastapi import APIRouter, FastAPI, HTTPException, Query, Request
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel
 
 
 class VideoMeta(BaseModel):
@@ -44,7 +44,7 @@ app = FastAPI(
     description="A REST API to extract YouTube video metadata",
     version="0.1.0",
     docs_url="/docs",
-    openapi_url="/openapi.json",  # OpenAPI spec
+    openapi_url="/",
     servers=[
         {
             "url": "{BASE_URL}",
@@ -59,27 +59,14 @@ app = FastAPI(
     ],
 )
 
-# Create API router
 api_router = APIRouter(prefix="/api")
-
-
-class VideoInfoRequest(BaseModel):
-    url: str
-
-    @field_validator("url")
-    @classmethod
-    def validate_youtube_url(cls, v: str) -> str:
-        """Validate that the URL is a valid YouTube URL."""
-        if "youtube.com" not in v and "youtu.be" not in v:
-            raise ValueError(f"Invalid URL: '{v}'. Please provide a valid YouTube URL.")
-        return v
 
 
 @api_router.get(
     "/video-metadata",
     response_model=VideoMeta,
     operation_id="get_youtube_video_metadata",
-    description="Get YouTube video metadata such as title, description, and thumbnail using the full video URL",
+    description="Get YouTube video metadata such as title, description, and thumbnail by supplying the YouTube video URL.",
 )
 async def get_youtube_video_info_get(
     request: Request,
@@ -116,9 +103,7 @@ async def get_youtube_video_info_get(
         raise
     except Exception as e:
 
-        raise HTTPException(
-            status_code=500, detail=f"Error retrieving video metadata: {str(e)}"
-        )
+        raise HTTPException(status_code=500, detail=f"Error retrieving video metadata: {str(e)}")
 
 
 app.include_router(api_router)
