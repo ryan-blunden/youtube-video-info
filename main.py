@@ -2,42 +2,9 @@ import json
 import urllib.parse
 from typing import Optional
 
-import yt_dlp
 from fastapi import APIRouter, FastAPI, HTTPException, Query, Request
-from pydantic import BaseModel
 
-
-class VideoMeta(BaseModel):
-    id: str
-    title: str
-    description: str
-    thumbnail_url: str
-    channel: str
-    channel_url: str
-    duration: int
-    view_count: int
-
-
-def get_video_meta(url) -> VideoMeta:
-    ydl_opts = {
-        "quiet": True,
-        "no_warnings": True,
-    }
-
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        info = ydl.extract_info(url, download=False)
-
-        return VideoMeta(
-            id=info.get("id"),
-            title=info.get("title"),
-            description=info.get("description"),
-            thumbnail_url=info.get("thumbnail"),
-            channel=info.get("uploader"),
-            channel_url=info.get("uploader_url"),
-            duration=info.get("duration"),
-            view_count=info.get("view_count"),
-        )
-
+from youtube_service import VideoMeta, get_video_meta
 
 app = FastAPI(
     title="YouTube Video Metadata API",

@@ -7,7 +7,7 @@ requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.116.1",
     "uvicorn>=0.35.0",
-    "yt-dlp>=2025.7.21",
+  "python-youtube>=0.9.7",
 ]
 
 [dependency-groups]
