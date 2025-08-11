@@ -1,10 +1,13 @@
 import json
+import os
 import urllib.parse
 from typing import Optional
 
 from fastapi import APIRouter, FastAPI, HTTPException, Query, Request
 
 from youtube_service import VideoMeta, get_video_meta
+
+BASE_URL = os.environ["BASE_URL"]
 
 app = FastAPI(
     title="YouTube Video Metadata API",
@@ -14,14 +17,8 @@ app = FastAPI(
     openapi_url="/openapi.json",
     servers=[
         {
-            "url": "{BASE_URL}",
-            "description": "Configurable server (set BASE_URL environment variable)",
-            "variables": {
-                "BASE_URL": {
-                    "default": "http://localhost:8000",
-                    "description": "Base URL for the API server (configure via BASE_URL environment variable)",
-                }
-            },
+            "url": f"{BASE_URL}",
+            "description": "API URL"
         }
     ],
 )

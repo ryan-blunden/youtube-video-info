@@ -13,14 +13,14 @@ dev-dependencies:
   uv sync --all-groups --compile-bytecode
 
 dev:
-  doppler run --command 'uv run uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000} --reload'
+  uv run uvicorn main:app --host 0.0.0.0 --port $PORT --reload
 
 format:
   uv run isort ./
   uv run black ./
 
 up:
-  ./bin/up
+  ./bin/up.sh
 
 down:
-  ./bin/down
+  ./bin/down.sh
