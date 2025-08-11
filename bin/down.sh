@@ -30,7 +30,21 @@ else
   echo "⚠️  No ngrok PID file found"
 fi
 
+# Kill cloudflared process
+if [ -f .cloudflared.pid ]; then
+  CF_PID=$(cat .cloudflared.pid)
+  if kill -0 "$CF_PID" 2>/dev/null; then
+    kill "$CF_PID"
+    echo "✅ Cloudflared stopped (PID: $CF_PID)"
+  else
+    echo "⚠️  Cloudflared process not found or already stopped"
+  fi
+  rm -f .cloudflared.pid
+else
+  echo "⚠️  No cloudflared PID file found"
+fi
+
 # Clean up log files
-rm -f server.log ngrok.log
+rm -f server.log ngrok.log cloudflared.log
 
 echo "🔄 All services stopped and cleaned up"
