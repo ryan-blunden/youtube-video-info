@@ -20,7 +20,7 @@ format:
   uv run black ./
 
 up:
-  doppler run -- ./bin/up
+  ./bin/up
 
 down:
   ./bin/down

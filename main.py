@@ -11,7 +11,7 @@ app = FastAPI(
     description="A REST API to extract YouTube video metadata",
     version="0.1.0",
     docs_url="/docs",
-    openapi_url="/",
+    openapi_url="/openapi.json",
     servers=[
         {
             "url": "{BASE_URL}",
