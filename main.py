@@ -30,7 +30,7 @@ api_router = APIRouter(prefix="/api")
     "/video-metadata",
     response_model=VideoMeta,
     operation_id="get_video_metadata",
-    description="Get YouTube video metadata such as title, description, and thumbnail by supplying the YouTube video URL.",
+    description="Get YouTube video metadata such as title, description, and thumbnail by supplying the YouTube video URL in the url query parameter.",
 )
 async def get_video_metadata(
     request: Request,
